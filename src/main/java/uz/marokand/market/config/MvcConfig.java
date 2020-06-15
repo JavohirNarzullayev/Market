@@ -12,11 +12,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-public class MvcConfig  implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("login").setViewName("user/login");
-
     }
 
     @Override

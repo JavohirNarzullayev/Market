@@ -33,7 +33,7 @@ public class PaymentService {
         this.orderService = orderService;
 
     }
-
+    @Transactional
     public void save() throws NotFoundException {
         Users byUserName = userService.getByUserName(SecurityUtils.getCurrentUser().get());
         List<Order> orderByCustomer = orderService.getOrderByCustomer(byUserName);
@@ -45,8 +45,11 @@ public class PaymentService {
         }
         double t=0;
         for (Invoice invoice:invoiceList) {
-            Double amount = invoice.getAmount();
-            t+=amount;
+            if (invoice!=null&&invoice.getAmount()!=null) {
+                Double amount = invoice.getAmount();
+                t+=amount;
+            }
+
         }
 
         payment.setAmount(t);
