@@ -62,7 +62,6 @@ public class PaymentService {
 
     public Payment getPayment(){
         List<Payment> all = paymentRepository.findAll();
-        Payment payment=all.get(all.size()-1);
-        return payment;
+        return all.get(all.size()-1);
     }
 }
