@@ -1,0 +1,141 @@
+//user table
+create database market;
+-- auto-generated definition
+create table users
+(
+    id       bigserial not null
+        constraint users_pkey
+            primary key,
+    active   boolean,
+    country  varchar(255),
+    email    varchar(255),
+    name     varchar(255),
+    password varchar(255),
+    phone    varchar(255),
+    username varchar(255)
+);
+
+alter table users
+    owner to postgres;
+
+//roles
+create table roles
+(
+    name varchar(255) not null
+        constraint roles_pkey
+            primary key
+);
+
+alter table roles
+    owner to postgres;
+//user_role
+create table user_role
+(
+    id   bigserial    not null
+        constraint fkm01t79r1jd43urtdfwr98po4q
+            references users,
+    name varchar(255) not null
+        constraint fkb7jxexkowxrklpwowsftxb69l
+            references roles,
+    constraint user_role_pkey
+        primary key (id, name)
+);
+
+alter table user_role
+    owner to postgres;
+//photo
+create table photo
+(
+    id           bigserial not null
+        constraint photo_pkey
+            primary key,
+    content_type varchar(255),
+    file_size    bigint,
+    name         varchar(255),
+    photo_bytes  oid,
+    upload_path  varchar(255)
+);
+
+alter table photo
+    owner to postgres;
+//product
+create table product
+(
+    id          bigserial not null
+        constraint product_pkey
+            primary key,
+    category    varchar(255),
+    description varchar(255),
+    name        varchar(255),
+    price       double precision,
+    photo_id    bigint
+        constraint fk98iv25orgpfk2up8udaco8uke
+            references photo
+);
+
+alter table product
+    owner to postgres;
+//orderDetails
+create table ordersdetails
+(
+    id         bigserial not null
+        constraint ordersdetails_pkey
+            primary key,
+    quantity   integer,
+    order_id   bigint
+        constraint fkfyarm1lk9kve3gffc6ba7v0fo
+            references orders,
+    product_id bigint
+        constraint fkpul5p2d4gpcpffgb5c1uw2vd2
+            references product
+);
+
+alter table ordersdetails
+    owner to postgres;
+//orderDetails
+create table ordersdetails
+(
+    id         bigserial not null
+        constraint ordersdetails_pkey
+            primary key,
+    quantity   integer,
+    order_id   bigint
+        constraint fkfyarm1lk9kve3gffc6ba7v0fo
+            references orders,
+    product_id bigint
+        constraint fkpul5p2d4gpcpffgb5c1uw2vd2
+            references product
+);
+alter table ordersdetails alter column order_id drop not null;
+alter table ordersdetails
+    owner to postgres;
+//orders
+create table orders
+(
+    id          bigint not null
+        constraint orders_pkey
+            primary key,
+    date        date,
+    customer_id bigint
+        constraint fksjfs85qf6vmcurlx43cnc16gy
+            references users
+);
+
+alter table orders
+    owner to postgres;
+//invoice
+create table invoice
+(
+    id       bigserial not null
+        constraint invoice_pkey
+            primary key,
+    amount   double precision,
+    due      date,
+    issued   date,
+    order_id bigint
+        constraint fkthf5w8xuexpjinfl7xheakhqn
+            references orders
+);
+
+alter table invoice
+    owner to postgres;
