@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Employee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body>
+<div th:replace="~{/fragments/header::header}"></div>
+<div class="container my-5">
+        <h3 class="alert-info text-center text-primary">Edit Customer</h3>
+        <!--List Customers-->
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-10">
+                    <form th:action="@{/admin/update}" class="was-validated" action="/admin/update" th:object="${editCustomer}" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label for="username" class="col-form-label">Username</label>
+                                <input type="text" th:field="*{username}" class="form-control"
+                                            id="username" placeholder="Javohir@Example"  required/>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="email" class="col-form-label">Email</label>
+                                <input type="text" th:field="*{email}" min="4" required class="form-control"
+                                       id="email" placeholder="Javohir" />
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">Ism</label>
+                                <input type="text" th:field="*{name}" class="form-control"
+                                       id="name" placeholder="Ism" required  />
+                            </div>
+                                <div class="form-group col-md-8 ">
+                                    <label for="country" class="custom-select">Country</label>
+                                    <select class="form-control selectpicker"  th:field="*{country}"  id="country"required >
+                                        <option value="">Open this select menu</option>
+                                        <option th:text="UZB" th:value="UZB"></option>
+                                        <option th:text="KZQ" th:value="KZQ"></option>
+                                        <option th:text="RUS" th:value="RUS"></option>
+                                    </select>
+                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="phone" class="col-form-label">Phone</label>
+                                <input type="text" th:field="*{phone}" class="form-control"
+                                       id="phone" placeholder="phone" required/></div>
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-primary" value=" Submit ">
+                            </div>
+                            <input type="hidden" id="id" th:field="*{id}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
